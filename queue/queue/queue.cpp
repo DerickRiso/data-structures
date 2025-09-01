@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+
+#define SIZE 10
+
+struct Queue
+{
+    int data[SIZE];
+    int front;
+    int rear;
+    int count;
+
+    Queue() : data{ 0 }, front(0), rear(0), count(0) {};
+};
+
+int input();
+int printQueue();
+Queue createQueue();
+int addElement();
+int removeElement();
+int menu();
+
+Queue fila = createQueue();
+
+int main()
+{
+
+
+    menu();
+}
+
+int input() {
+    int value;
+    cin >> value;
+    return value;
+}
+
+int printQueue() {
+    for (int i = 0; i < SIZE; i++)
+    {
+        cout << fila.data[i] << " <- ";
+    }
+    return 0;
+}
+
+Queue createQueue() {
+    Queue fila = Queue();
+    return fila;
+}
+
+int addElement() {
+    int num = input();
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (fila.data[i] == NULL) {
+            fila.data[i] = num;
+            fila.rear = (fila.rear + 1) % SIZE;
+            cout << endl << "Elemento adicionado" << endl;
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int removeElement() {
+    int value = fila.data[fila.front];
+    fila.front = (fila.front + 1) % SIZE;
+    cout << endl << "Elemento " << value << " removido" << endl;
+    return value;
+}
+
+int menu() {
+    int option;
+    do {
+        cout << endl << "1 - Inserir na fila" << endl;
+        cout << "2 - Remover da fila" << endl;
+        cout << "3 - Exibir fila" << endl;
+        cout << "4 - Sair" << endl;
+        cout << "Insira a operacao: ";
+        cin >> option;
+
+        switch (option) {
+        case 1:
+            addElement();
+            break;
+        case 2:
+            removeElement();
+            break;
+        case 3:
+            printQueue();
+            break;
+        }
+    } while (option != 4);
+
+    return option;
+}
+
+
+
+
