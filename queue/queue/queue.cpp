@@ -8,25 +8,22 @@ struct Queue
 {
     int data[SIZE];
     int front;
-    int rear;
     int count;
+    int rear;
 
     Queue() : data{ 0 }, front(0), rear(0), count(0) {};
 };
 
+Queue fila = Queue();
+
 int input();
 int printQueue();
-Queue createQueue();
-int addElement();
-int removeElement();
+int enqueue();
+int dequeue();
 int menu();
-
-Queue fila = createQueue();
 
 int main()
 {
-
-
     menu();
 }
 
@@ -41,32 +38,33 @@ int printQueue() {
     {
         cout << fila.data[i] << " <- ";
     }
+    cout << endl << endl;
+    cout << "Front = " << fila.data[fila.front] << endl;
+    cout << "Count = " << fila.count;
+    cout << endl << endl;
     return 0;
 }
 
-Queue createQueue() {
-    Queue fila = Queue();
-    return fila;
-}
-
-int addElement() {
+int enqueue() {
     int num = input();
     for (int i = 0; i < SIZE; i++)
     {
         if (fila.data[i] == NULL) {
             fila.data[i] = num;
             fila.rear = (fila.rear + 1) % SIZE;
-            cout << endl << "Elemento adicionado" << endl;
+            fila.count++;
+            cout << endl << endl << "Elemento adicionado" << endl << endl;
             return 0;
         }
     }
     return 1;
 }
 
-int removeElement() {
+int dequeue() {
     int value = fila.data[fila.front];
+    fila.data[fila.front] = 0;
     fila.front = (fila.front + 1) % SIZE;
-    cout << endl << "Elemento " << value << " removido" << endl;
+    fila.count--;
     return value;
 }
 
@@ -82,10 +80,10 @@ int menu() {
 
         switch (option) {
         case 1:
-            addElement();
+            enqueue();
             break;
         case 2:
-            removeElement();
+            dequeue();
             break;
         case 3:
             printQueue();

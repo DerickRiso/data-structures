@@ -18,9 +18,8 @@ int selectOption();
 int removeLast();
 int removeFirst();
 
-Node* head = new Node(0);
-Node* tail = head;
-Node* current = head;
+Node* head = nullptr;
+Node* tail = nullptr;
 
 int option = 0;
 
@@ -58,6 +57,8 @@ int selectOption() {
 	case 3:
 		break;
 	case 4:
+		removeFirst();
+		printList();
 		break;
 	case 5:
 		return 0;
@@ -78,12 +79,21 @@ int userInput() {
 
 int createNode(int value) {
 	Node* newNode = new Node(value);
-	tail->next = newNode;
-	tail = newNode;
+	if (head == nullptr) {
+		head = newNode;
+		tail = newNode;
+	}
+	else {
+		tail->next = newNode;
+		tail = newNode;
+	}
+	
 	return 0;
 }
 
 int printList() {
+
+	Node* current = head;
 	cout << endl;
 	while (current->next != nullptr) {
 		cout << current->value << " -> ";
@@ -101,10 +111,15 @@ int printList() {
 
 int removeLast() {
 
+
 	return 0;
 }
 
 int removeFirst() {
+	Node* temp = head->next;
+	head->next = temp->next;
+	delete temp;
+
 
 	return 0;
 }
